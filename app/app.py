@@ -11,7 +11,7 @@ def returnBackwardsString(random_string):
 @app.route('/')
 def index():
     """Test http connection"""
-    return "App Funcionando"
+    return "Outro Deploy"
 
 
 if __name__ == '__main__':
