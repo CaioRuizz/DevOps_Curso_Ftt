@@ -1,7 +1,5 @@
 mkdir certs
 
-echo "$CA_PEM"
-
 echo "$CA_PEM" > certs/ca.pem
 echo "$CERT_PEM" > certs/cert.pem
 echo "$CONFIG_JSON" > certs/config.json
