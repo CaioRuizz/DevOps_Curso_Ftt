@@ -16,7 +16,6 @@ jobs:
       - name: change scripts permissions
         run: |
           chmod +x ci/setup.sh
-          chmod +x ci/setup_env.sh
           chmod +x ci/deploy.sh
           chmod +x ci/build.sh
           chmod +x ci/pipeline.sh
