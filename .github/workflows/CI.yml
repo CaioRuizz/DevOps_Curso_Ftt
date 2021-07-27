@@ -23,4 +23,4 @@ jobs:
 
       - name: run pipeline
         run: |
-          ./pipeline.sh
+          ./ci/pipeline.sh
