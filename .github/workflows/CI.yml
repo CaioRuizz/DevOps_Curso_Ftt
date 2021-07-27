@@ -18,11 +18,11 @@ jobs:
 
       - name: setup env
         run: |
-          ./ci/setup.sh
+          pip3 install -r app/requirements.txt
 
       - name: test app
         run: |
-          ./ci/test.sh
+          python3 -m tests
 
   deploy:
     runs-on: ubuntu-latest
