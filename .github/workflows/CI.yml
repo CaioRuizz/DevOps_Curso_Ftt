@@ -5,10 +5,22 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  CI_CD:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
       - name: Hello World
         run: echo Hello World!!
+
+      - name: change scripts permissions
+        run: |
+          chmod +x ci/setup.sh
+          chmod +x ci/deploy.sh
+          chmod +x ci/build.sh
+          chmod +x ci/pipeline.sh
+          chmod +x ci/test.sh
+
+      - name: run pipeline
+        run: |
+          ./pipeline.sh
