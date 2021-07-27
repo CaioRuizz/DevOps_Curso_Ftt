@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  CI_CD:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,25 +16,39 @@ jobs:
       - name: create local container
         run: docker-compose -f docker-compose.test.yml up -d --build
 
-      - name: change scripts permissions
-        run: |
-          chmod +x ci/setup.sh
-          chmod +x ci/deploy.sh
-          chmod +x ci/build.sh
-          chmod +x ci/test.sh
-
-      - name: run setup
+      - name: setup env
         run: |
           ./ci/setup.sh
 
-      - name: run test
+      - name: test app
         run: |
           ./ci/test.sh
 
-      - name: run build
-        run: |
-          ./ci/build.sh
+  deploy:
+    runs-on: ubuntu-latest
 
-      - name: run deploy
+    steps:
+      - uses: actions/checkout@v2
+      - name: Hello World
+        run: echo Hello World!!
+
+      - name: build container
         run: |
-          ./ci/deploy.sh
+          docker-compose build
+        env:
+          DOCKER_TLS_VERIFY: "1"
+          DOCKER_HOST: "tcp://54.91.12.208:2376"
+          DOCKER_CERT_PATH: "certs"
+          DOCKER_MACHINE_NAME: "cursodevops"
+
+
+      - name: deploy container
+        run: |
+          docker-compose down
+          docker system prune -f
+          docker-compose up -d
+        env:
+          DOCKER_TLS_VERIFY: "1"
+          DOCKER_HOST: "tcp://54.91.12.208:2376"
+          DOCKER_CERT_PATH: "certs"
+          DOCKER_MACHINE_NAME: "cursodevops"
