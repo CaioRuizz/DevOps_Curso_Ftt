@@ -16,10 +16,16 @@ jobs:
       - name: change scripts permissions
         run: |
           chmod +x ci/setup.sh
+          chmod +x ci/setup_env.sh
           chmod +x ci/deploy.sh
           chmod +x ci/build.sh
           chmod +x ci/pipeline.sh
           chmod +x ci/test.sh
+
+      - name: Setup Environment
+        run: ./ci/setup_env.sh
+        env:
+          CA_PEM: {{ $secrets.CA_PEM }}
 
       - name: run pipeline
         run: |
