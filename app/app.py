@@ -2,6 +2,10 @@
 from flask import Flask, request
 app = Flask(__name__)
 
+@app.route('/outraRota')
+def outra_rota():
+    return 'Rota Funcionando'
+
 @app.route('/bhaskara', methods=['POST'])
 def rota_bhaskara():
     a = request.json.get('a')
