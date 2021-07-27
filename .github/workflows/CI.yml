@@ -21,9 +21,20 @@ jobs:
           chmod +x ci/setup.sh
           chmod +x ci/deploy.sh
           chmod +x ci/build.sh
-          chmod +x ci/pipeline.sh
           chmod +x ci/test.sh
 
-      - name: run pipeline
+      - name: run setup
         run: |
-          ./ci/pipeline.sh
+          ./ci/setup.sh
+
+      - name: run test
+        run: |
+          ./ci/test.sh
+
+      - name: run build
+        run: |
+          ./ci/build.sh
+
+      - name: run deploy
+        run: |
+          ./ci/deploy.sh
