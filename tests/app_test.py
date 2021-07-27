@@ -72,7 +72,7 @@ class TestApp(unittest.TestCase):
 
         url = 'http://localhost:3000/outraRota'
 
-        response = requests.get(url)
+        response = requests.get(url).text
 
         self.assertEquals(response, expected_response)
 
