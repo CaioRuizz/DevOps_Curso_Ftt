@@ -25,6 +25,7 @@ jobs:
           python3 -m tests
 
   deploy:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
