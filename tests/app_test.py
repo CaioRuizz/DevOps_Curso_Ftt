@@ -1,5 +1,7 @@
 from app import app
 
+import requests
+
 import unittest
 
 class TestApp(unittest.TestCase):
@@ -33,3 +35,19 @@ class TestApp(unittest.TestCase):
         b = 6
         expected_result = 2
         self.assertEqual(expected_result, app.divisao(a,b))
+
+    def test_rota_bhaskara(self):
+        url = "http://localhost:3000/bhaskara"
+
+        payload = {
+            "a": 4,
+            "b": -4,
+            "c": 1
+        }
+        headers = {"Content-Type": "application/json"}
+
+        response = requests.request("POST", url, json=payload, headers=headers).json()
+
+        expected_result = [0.5, 0.5]
+
+        self.assertEquals(response, expected_result)

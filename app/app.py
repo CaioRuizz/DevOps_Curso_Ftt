@@ -2,7 +2,14 @@
 from flask import Flask, request
 app = Flask(__name__)
 
-@app.route('/bhaskara/<a>/<b>/<c>')
+@app.route('/bhaskara', methods=['POST'])
+def rota_bhaskara():
+    a = request.json.get('a')
+    b = request.json.get('b')
+    c = request.json.get('c')
+    return bhaskara(a, b, c)
+
+
 def bhaskara(a, b, c):
     a = float(a)
     b = float(b)
