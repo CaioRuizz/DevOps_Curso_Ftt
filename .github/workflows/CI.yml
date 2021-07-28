@@ -10,10 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Create Certs
-        run: chmod +x scripts/create_certs.sh; ./scripts/create_certs.sh
-        env:
-          CA: ${{ secrets.CA_PEM }}
+      - name: checkout
 
       - name: create local container
         run: docker-compose -f docker-compose.test.yml up -d --build
@@ -32,10 +29,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Create Certs
+      - name: create certs
         run: chmod +x scripts/create_certs.sh; ./scripts/create_certs.sh
         env:
           CA: ${{ secrets.CA_PEM }}
+          KEY: ${{ secrets.KEY_PEM }}
+          CERT: ${{ secrets.CERT_PEM }}
 
       - name: build container
         run: |
