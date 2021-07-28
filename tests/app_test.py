@@ -76,4 +76,22 @@ class TestApp(unittest.TestCase):
 
         self.assertEquals(response, expected_response)
 
+    
+    def test_rota_stage(self):
+        expected_response = 'deployado em stage'
+
+        url = 'http://localhost:3000/rotaStage'
+
+        response = requests.get(url).text
+
+        self.assertEquals(response, expected_response)
+
+    def test_rota_stage(self):
+        expected_response = 'outra rota stage'
+
+        url = 'http://localhost:3000/outraRotaStage'
+
+        response = requests.get(url).text
+
+        self.assertEquals(response, expected_response)
         
