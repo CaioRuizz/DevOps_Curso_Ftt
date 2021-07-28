@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create Certs
-        run: chmod +x scrips/create_certs.sh; ./scrips/create_certs.sh
+        run: chmod +x scripts/create_certs.sh; ./scripts/create_certs.sh
         env:
           CA: ${{ secrets.CA_PEM }}
 
