@@ -42,9 +42,9 @@ jobs:
           docker-compose build
         env:
           DOCKER_TLS_VERIFY: "1"
-          DOCKER_HOST: "tcp://54.91.12.208:2376"
+          DOCKER_HOST: "tcp://3.88.175.72:2376"
           DOCKER_CERT_PATH: "certs"
-          DOCKER_MACHINE_NAME: "cursodevops"
+          DOCKER_MACHINE_NAME: "devopscursostage"
 
 
       - name: deploy container
