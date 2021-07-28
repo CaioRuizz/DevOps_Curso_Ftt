@@ -2,6 +2,10 @@
 from flask import Flask, request
 app = Flask(__name__)
 
+@app.route('/rotaStage')
+def rota_stage():
+    return 'deployado em stage'
+
 @app.route('/outraRota')
 def outra_rota():
     return 'Rota Funcionando'
