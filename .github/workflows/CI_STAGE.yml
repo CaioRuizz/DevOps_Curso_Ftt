@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [ stage ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: checkout
+        run: echo Testing
+
+      - name: create local container
+        run: docker-compose -f docker-compose.test.yml up -d --build
+
+      - name: setup env
+        run: |
+          pip3 install -r app/requirements.txt
+
+      - name: test app
+        run: |
+          python3 -m tests
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: create certs
+        run: chmod +x scripts/create_certs.sh; ./scripts/create_certs.sh
+        env:
+          CA: ${{ secrets.STAGE_CA }}
+          KEY: ${{ secrets.STAGE_KEY }}
+          CERT: ${{ secrets.STAGE_CERT }}
+
+      - name: build container
+        run: |
+          docker-compose build
+        env:
+          DOCKER_TLS_VERIFY: "1"
+          DOCKER_HOST: "tcp://54.91.12.208:2376"
+          DOCKER_CERT_PATH: "certs"
+          DOCKER_MACHINE_NAME: "cursodevops"
+
+
+      - name: deploy container
+        run: |
+          docker-compose down
+          docker system prune -f
+          docker-compose up -d
+        env:
+          DOCKER_TLS_VERIFY: "1"
+          DOCKER_HOST: "tcp://3.88.175.72:2376"
+          DOCKER_CERT_PATH: "certs"
+          DOCKER_MACHINE_NAME: "devopscursostage"
