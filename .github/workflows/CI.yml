@@ -10,8 +10,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Hello World
-        run: echo Hello World!!
+      - name: Create Certs
+        run: chmod +x scrips/create_certs.sh; ./scrips/create_certs.sh
+        env:
+          CA: ${{ secrets.CA_PEM }}
 
       - name: create local container
         run: docker-compose -f docker-compose.test.yml up -d --build
